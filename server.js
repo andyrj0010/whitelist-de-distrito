@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = express();
 
-// 🔥 IMPORTANTE PARA RENDER
+// 🔥 IMPORTANTE PARA PROXY (Railway)
 app.set('trust proxy', 1);
 
 // 🔥 FUNCIÓN WEBHOOK DISCORD
@@ -60,12 +60,14 @@ const sendToDiscord = async (data) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// 🔐 SESIONES (ARREGLADO PARA RAILWAY)
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "secreto",
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true // 🔥 IMPORTANTE PARA HTTPS (Render)
+        secure: false, // 🔥 clave para que funcione seguro
+        sameSite: 'lax'
     }
 }));
 
@@ -154,7 +156,7 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// 🚀 IMPORTANTE: PUERTO DINÁMICO (RENDER)
+// 🚀 PUERTO DINÁMICO (IMPORTANTE)
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
