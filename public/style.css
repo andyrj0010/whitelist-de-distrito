@@ -1,0 +1,162 @@
+/* ===== FONDO LIMPIO ===== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+
+    background: #020617; /* fondo oscuro base */
+}
+
+/* LOGO COMO MARCA DE AGUA (DETALLE PRO) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: url('myLogo.png') no-repeat center;
+    background-size: 50px; /* 👈 MÁS PEQUEÑO */
+
+    opacity: 0.03; /* 👈 MÁS SUAVE */
+
+    z-index: -2;
+}
+
+/* OSCURECER + GRADIENTE */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(2, 6, 23, 0.9) 0%,
+        rgba(2, 6, 23, 0.7) 50%,
+        rgba(2, 6, 23, 0.95) 100%
+    );
+
+    z-index: -1;
+}
+
+/* ===== CONTENEDOR ===== */
+.container {
+    width: 420px;
+    margin: 50px auto;
+    padding: 30px;
+
+    border-radius: 15px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(15px);
+
+    box-shadow: 
+        0 0 40px rgba(0,0,0,0.7),
+        0 0 20px rgba(99,102,241,0.2);
+
+    animation: fadeIn 0.8s ease;
+}
+
+/* ===== ANIMACIÓN ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== LOGO ARRIBA ===== */
+.logo {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.logo img {
+    width: 90px !important;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+
+    filter: drop-shadow(0 0 8px rgba(255,140,0,0.5));
+}
+
+/* ===== TITULOS ===== */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* ===== SUBTITULO ===== */
+.subtitle {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* ===== INPUTS ===== */
+input, textarea, select {
+    width: 100%;
+    margin: 8px 0 15px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: #0f172a;
+    color: white;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #6366f1;
+    box-shadow: 0 0 10px #6366f1;
+}
+
+/* ===== LABELS ===== */
+label {
+    font-size: 14px;
+    color: #cbd5f5;
+}
+
+/* ===== BOTONES ===== */
+button, .btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #6366f1, #4f46e5);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+
+button:hover, .btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px #6366f1;
+}
+
+/* ===== LINKS ===== */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #818cf8;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== TEXTO ABAJO ===== */
+.footer-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+    color: #94a3b8;
+    opacity: 0.8;
+}

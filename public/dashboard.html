@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel Whitelist</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+    <img src="myLogo.png" alt="Logo servidor">
+</div>
+<p class="footer-text">PreWhitelist Distrito Sur</p>
+    <h2 id="user"></h2>
+
+   <form id="form">
+
+<input type="text" name="nombre" placeholder="Nombre IC" required>
+<input type="number" name="edad" placeholder="Edad IC" required>
+
+<!-- 1 -->
+<label>1. ¿Qué es PowerGaming (PG)?</label>
+<select name="p1" required>
+    <option value="">Selecciona</option>
+    <option>Hacer acciones imposibles en la vida real</option>
+    <option>Usar información externa en el juego</option>
+    <option>Matar sin motivo</option>
+</select>
+
+<!-- 2 -->
+<label>2. ¿Qué es MetaGaming (MG)?</label>
+<select name="p2" required>
+    <option value="">Selecciona</option>
+    <option>Usar información externa en el juego</option>
+    <option>Forzar rol a otro jugador</option>
+    <option>Desconectarse en rol</option>
+</select>
+
+<!-- 3 -->
+<label>3. ¿Qué es Revenge Kill (RK)?</label>
+<select name="p3" required>
+    <option value="">Selecciona</option>
+    <option>Vengarte después de morir</option>
+    <option>Robar sin rol</option>
+    <option>Hablar fuera de personaje</option>
+</select>
+
+<!-- 4 -->
+<label>4. Si te apuntan con un arma, ¿qué haces?</label>
+<select name="p4" required>
+    <option value="">Selecciona</option>
+    <option>Cooperar con el rol</option>
+    <option>Salir corriendo siempre</option>
+    <option>Desconectarte</option>
+</select>
+
+<!-- 5 -->
+<label>5. ¿Qué es CK (Character Kill)?</label>
+<select name="p5" required>
+    <option value="">Selecciona</option>
+    <option>Muerte definitiva del personaje</option>
+    <option>Revivir en hospital</option>
+    <option>Morir y volver a vengarte</option>
+</select>
+
+<!-- 6 -->
+<label>6. ¿Qué es NRP (No Roleplay)?</label>
+<select name="p6" required>
+    <option value="">Selecciona</option>
+    <option>No seguir el rol correctamente</option>
+    <option>Hacer buen rol</option>
+    <option>Usar comandos</option>
+</select>
+
+<!-- 7 -->
+<label>7. ¿Está permitido usar información de Discord en el juego?</label>
+<select name="p7" required>
+    <option value="">Selecciona</option>
+    <option>No</option>
+    <option>Sí</option>
+</select>
+
+<!-- 8 -->
+<label>8. ¿Si estás en una persecución policial, ¿puedes tirarte de un puente sin motivo??</label>
+<select name="p1" required>
+    <option value="">Selecciona</option>
+    <option>si siempre y cuando el rol sea coherente</option>
+    <option>no, seria hacer pg</option>
+    <option>puede ser o no</option>
+</select>
+
+<!-- 9 -->
+<label>9. ¿Si te matan en rol, puedes recordar todo lo sucedido?</label>
+<select name="p1" required>
+    <option value="">Selecciona</option>
+    <option>si, solo y unicamente si me revive un medico</option>
+    <option>No, debes olvidar lo ocurrido (según normas)</option>
+</select>
+
+<!-- 10 -->
+<label>10. ¿Qué es Fail RP?</label>
+<select name="p1" required>
+    <option value="">Selecciona</option>
+    <option>Romper el realismo del rol</option>
+    <option>Hacer rol serio</option>
+    <option>Respetar normas</option>
+</select>
+
+
+<!-- ABIERTAS -->
+
+<textarea name="historia" placeholder="Historia de tu personaje (mínimo 5 líneas)" required></textarea>
+
+<textarea name="motivo" placeholder="¿Por qué quieres entrar al servidor?" required></textarea>
+
+<button type="submit">Enviar solicitud</button>
+
+</form>
+
+    <a href="/logout">Cerrar sesión</a>
+</div>
+
+<script>
+fetch('/api/user')
+.then(res => res.json())
+.then(data => {
+    document.getElementById('user').innerText = "Bienvenido " + data.username;
+});
+
+document.getElementById('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    try {
+        const res = await fetch('/api/whitelist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+            alert("✅ Solicitud enviada correctamente");
+        } else {
+            alert("❌ " + (result.message || "Error al enviar"));
+        }
+
+    } catch (err) {
+        console.error(err);
+        alert("❌ Error de conexión con el servidor");
+    }
+});
+</script>
+
+</body>
+</html>
